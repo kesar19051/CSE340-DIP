@@ -13,7 +13,7 @@ N1 = len(matrix[0])
 
 output_matrix = np.ones((M1,N1))*-1
 
-transformation_matrix = np.array([[1.414,-1.414,0],[1.414,1.414,0],[30,30,1]])
+transformation_matrix = np.array([[2,0,0],[0,2,0],[0,0,1]])
 
 inverse = np.linalg.inv(transformation_matrix)
 
