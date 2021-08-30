@@ -11,7 +11,7 @@ matrix = np.asarray(img)
 # matrix = np.array([[1,4,7],[10,13,16],[19,22,25]])
 
 #define the interpolation factor
-c = 3
+c = 1.7
 
 M1 = len(matrix)
 N1 = len(matrix[0])
@@ -27,15 +27,16 @@ for i in range(M1):
 # print(padded_matrix)
 # print()
 
-M2 = c*(M1)
-N2 = c*(N1)
+M2 = round(c*(M1))
+N2 = round(c*(N1))
 
 new_matrix = np.ones((M2, N2))*-1
 
 #Create Output interpolated matrix structure
-for i in range(M1):
-	for j in range(N1):
-		new_matrix[i*c][j*c] = matrix[i][j]
+
+# for i in range(M1):
+# 	for j in range(N1):
+# 		new_matrix[i*c][j*c] = matrix[i][j]
 
 
 #filling in the output matirx
@@ -87,9 +88,9 @@ for i in range(M2):
 
 			new_matrix[i][j] = np.dot(np.array([x,y,x*y,1]),A)
 
+# img.save('test.png')
 
 img = Image.fromarray(new_matrix)
-# img.save('test.png')
 img.show()
 # print("Output")
 # print(new_matrix)

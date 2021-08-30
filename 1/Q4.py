@@ -11,12 +11,22 @@ matrix = np.asarray(img)
 M1 = len(matrix)
 N1 = len(matrix[0])
 
+# padding the matrix with zeroes to handle the corner cases
+padded_matrix = np.ones((M1+1,N1+1))*0
+
+for i in range(M1):
+	for j in range(N1):
+		padded_matrix[i][j] = matrix[i][j]
+
+
+# creating the output matrix
 output_matrix = np.ones((M1,N1))*-1
 
-transformation_matrix = np.array([[2,0,0],[0,2,0],[0,0,1]])
+transformation_matrix = np.array([[1,0,0],[0,1,0],[0,0,1]])
 
 inverse = np.linalg.inv(transformation_matrix)
 
+# filling in the output matrix
 for i in range(M1):
 	for j in range(N1):
 
@@ -51,6 +61,7 @@ for i in range(M1):
 
 			x1,y1,x2,y2 = int(x1), int(y1), int(x2), int(y2)
 
+			# bilinear interpolation
 			X = [
 					[x1,y1,x1*y1,1],
 					[x1,y2,x1*y2,1],
@@ -59,10 +70,10 @@ for i in range(M1):
 				]
 
 			Y = [
-					[matrix[x1][y1]],
-					[matrix[x1][y2]],
-					[matrix[x2][y2]],
-					[matrix[x2][y1]],
+					[padded_matrix[x1][y1]],
+					[padded_matrix[x1][y2]],
+					[padded_matrix[x2][y2]],
+					[padded_matrix[x2][y1]],
 				]
 
 			A = np.dot(np.linalg.inv(X), Y)
