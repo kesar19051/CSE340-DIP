@@ -7,43 +7,25 @@ import numpy as np
 # numpy array
 img = Image.open('x5.bmp')
 matrix = np.asarray(img)
-# matrix = np.array([[5,10],[10,20]])
-# matrix = np.array([[1,4,7],[10,13,16],[19,22,25]])
-
-#define the interpolation factor
-c = 3
 
 M1 = len(matrix)
 N1 = len(matrix[0])
 
-padded_matrix = np.ones((M1+1,N1+1))*0
+output_matrix = np.ones((M1,N1))*-1
+
+transformation_matrix = np.array([[1.414,-1.414,0],[1.414,1.414,0],[30,30,1]])
+
+inverse = np.linalg.inv(transformation_matrix)
 
 for i in range(M1):
 	for j in range(N1):
-		padded_matrix[i][j] = matrix[i][j]
 
-# print(matrix)
-# print()
-# print(padded_matrix)
-# print()
+		output = np.array([i,j,1])
+		I = np.dot(output, inverse)
+		x = I[0]
+		y = I[1]
 
-M2 = c*(M1)
-N2 = c*(N1)
-
-new_matrix = np.ones((M2, N2))*-1
-
-#Create Output interpolated matrix structure
-for i in range(M1):
-	for j in range(N1):
-		new_matrix[i*c][j*c] = matrix[i][j]
-
-
-#filling in the output matirx
-for i in range(M2):
-	for j in range(N2):
-		if new_matrix[i][j]==-1:
-			x = i/c
-			y = j/c
+		if x<M1 and y<N1:
 
 			if ceil(x)!=x:
 				x1 = floor(x)
@@ -77,23 +59,22 @@ for i in range(M2):
 				]
 
 			Y = [
-					[padded_matrix[x1][y1]],
-					[padded_matrix[x1][y2]],
-					[padded_matrix[x2][y2]],
-					[padded_matrix[x2][y1]],
+					[matrix[x1][y1]],
+					[matrix[x1][y2]],
+					[matrix[x2][y2]],
+					[matrix[x2][y1]],
 				]
 
 			A = np.dot(np.linalg.inv(X), Y)
 
-			new_matrix[i][j] = np.dot(np.array([x,y,x*y,1]),A)
+			output_matrix[i][j] = np.dot(np.array([x,y,x*y,1]),A)
 
+		
 
-img = Image.fromarray(new_matrix)
+img = Image.fromarray(output_matrix)
 # img.save('test.png')
 img.show()
 # print("Output")
 # print(new_matrix)
 
 print("process ended")
-# print(new_matrix)
-
