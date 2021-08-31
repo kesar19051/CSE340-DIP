@@ -26,8 +26,9 @@ N2 = 4*N1
 output_matrix = np.ones((M2,N2))*-1
 
 # transformation_matrix = np.array([[0.707,-0.707,0],[0.707,0.707,0],[0,0,1]])
-# transformation_matrix = np.array([[1.414,-1.414,0],[1.414,1.414,0],[30,30,1]])\
-transformation_matrix = np.array([[2,0,0],[0,2,0],[0,0,1]])
+transformation_matrix = np.array([[1.414,-1.414,0],[1.414,1.414,0],[30,30,1]])\
+# transformation_matrix = np.array([[0,-1,0],[1,0,0],[0,0,1]])
+# transformation_matrix = np.array([[0.52,-0.52,0],[0.52,0.52,0],[0,0,1]])
 
 inverse = np.linalg.inv(transformation_matrix)
 
@@ -88,5 +89,7 @@ for i in range(M2):
 		
 
 img = Image.fromarray(output_matrix)
-# img.save('test.png')
+# new_p = Image.fromarray(fft_p)
+img = img.convert("L")
+img.save("test.png")
 img.show()
