@@ -5,13 +5,13 @@ import numpy as np
 
 # load the image and convert into
 # numpy array
-img = Image.open('x5.bmp')
+img = Image.open('assign1.jpg')
 matrix = np.asarray(img)
 # matrix = np.array([[5,10],[10,20]])
 # matrix = np.array([[1,4,7],[10,13,16],[19,22,25]])
 
 #define the interpolation factor
-c = 1.7
+c = 2
 
 M1 = len(matrix)
 N1 = len(matrix[0])
@@ -95,6 +95,6 @@ img.show()
 # print("Output")
 # print(new_matrix)
 
-print("process ended")
+# print("process ended")
 # print(new_matrix)
 
