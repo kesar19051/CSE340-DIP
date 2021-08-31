@@ -17,7 +17,7 @@ for i in range(M1):
 	for j in range(N1):
 		padded_matrix[i][j] = input_matrix[i][j]
 
-registered_matrix = np.ones((M1,N1))*-1
+output_matrix = np.ones((512,512))*-1
 # input_img.show()
 
 # ref_img = Image.open('assign1.jpg')
@@ -29,17 +29,21 @@ X = np.array([[-1,121,1],[-18,102,1],[19,55,1]])
 # T_inverse = np.linalg.inv(np.array([[1.414,-1.414,0],[1.414,1.414,0],[30,30,1]]))
 
 Z = np.dot(np.linalg.inv(V),X)
+Z[0][1] = 0-Z[0][1]
+Z[1][0] = 0-Z[1][0]
 print(Z)
+# Z = np.array([[1.414,-1.414,0],[1.414,1.414,0],[30,30,1]])
 
 # inverse = np.linalg.inv(Z)
+for i in range(512):
+	for j in range(512):
 
-for i in range(M1):
-	for j in range(N1):
-		output = np.dot(np.array([i,j,1]),Z)
-		x = output[0]
-		y = output[1]
+		output = np.array([i,j,1])
+		I = np.dot(output, Z)
+		x = I[0]
+		y = I[1]
 
-		if x<M1 and x>=0 and y<N1 and y>=0:
+		if x<512 and x>=0 and y<512 and y>=0:
 
 			if ceil(x)!=x:
 				x1 = floor(x)
@@ -82,9 +86,9 @@ for i in range(M1):
 
 			A = np.dot(np.linalg.inv(X), Y)
 
-			registered_matrix[i][j] = np.dot(np.array([x,y,x*y,1]),A)
+			output_matrix[i][j] = np.dot(np.array([x,y,x*y,1]),A)
 
-img = Image.fromarray(registered_matrix)
+img = Image.fromarray(output_matrix)
 img.show()
 
 
