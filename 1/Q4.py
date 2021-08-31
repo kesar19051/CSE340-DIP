@@ -19,8 +19,8 @@ for i in range(M1):
 	for j in range(N1):
 		padded_matrix[i][j] = matrix[i][j]
 
-M2 = 4*M1
-N2 = 4*N1
+M2 = 8*M1
+N2 = 8*N1
 
 # creating the output matrix
 output_matrix = np.ones((M2,N2))*-1
@@ -36,7 +36,7 @@ inverse = np.linalg.inv(transformation_matrix)
 for i in range(M2):
 	for j in range(N2):
 
-		output = np.array([i-(2*M1),j-(2*N1),1])
+		output = np.array([i-(4*M1),j-(4*N1),1])
 		I = np.dot(output, inverse)
 		x = I[0]
 		y = I[1]
