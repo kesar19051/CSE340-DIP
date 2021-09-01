@@ -5,46 +5,43 @@ import numpy as np
 
 # load the image and convert into
 # numpy array
-input_img = Image.open('test.png')
-input_matrix = np.asarray(input_img)
 
-M1 = len(input_matrix)
-N1 = len(input_matrix[0])
+# V = np.array([[44,20,1],[42,8,1],[12,4,1]])
+# X = np.array([[121,-1,1],[102,-18,1],[55,19,1]])
 
-padded_matrix = np.ones((M1+1,N1+1))*0
-
-for i in range(M1):
-	for j in range(N1):
-		padded_matrix[i][j] = input_matrix[i][j]
-
-output_matrix = np.ones((512,512))*-1
-# input_img.show()
-
-# ref_img = Image.open('assign1.jpg')
-# ref_img.show()
-
-V = np.array([[20,44,1],[8,42,1],[4,12,1]])
-X = np.array([[-1,121,1],[-18,102,1],[19,55,1]])
-
+V = np.array([[2,5,1],[7,2,1],[8,29,1]])
+X = np.array([[41,33,1],[43,24,1],[83,60,1]])
 # T_inverse = np.linalg.inv(np.array([[1.414,-1.414,0],[1.414,1.414,0],[30,30,1]]))
 
 Z = np.dot(np.linalg.inv(V),X)
-Z[0][1] = 0-Z[0][1]
-Z[1][0] = 0-Z[1][0]
+# Z[0][1] = 0-Z[0][1]
+# Z[1][0] = 0-Z[1][0]
 print(Z)
-# Z = np.array([[1.414,-1.414,0],[1.414,1.414,0],[30,30,1]])
 
-# inverse = np.linalg.inv(Z)
+input_img = Image.open('test.png')
+input_matrix = np.asarray(input_img)
+padded_matrix = np.ones((513,513))*0
+
 for i in range(512):
 	for j in range(512):
+		padded_matrix[i][j] = input_matrix[i][j]
 
-		output = np.array([i,j,1])
-		I = np.dot(output, Z)
-		x = I[0]
-		y = I[1]
+output_matrix = np.ones((512,512))*-1
 
-		if x<512 and x>=0 and y<512 and y>=0:
+# new_matrix = np.ones((64,64))*-1
 
+# for i in range(64):
+# 	for j in range(64):
+# 		new_matrix[i][j] = input_matrix[i+256][j+256]
+
+for i in range(512):
+	for j in range(512):
+		inputArr = np.array([i,j,1])
+		output = np.dot(inputArr,Z)
+		x = output[0]
+		y = output[1]
+		
+		if(x<512 and x>=0 and y<512 and y>=0):
 			if ceil(x)!=x:
 				x1 = floor(x)
 				x2 = ceil(x)
@@ -88,7 +85,7 @@ for i in range(512):
 
 			output_matrix[i][j] = np.dot(np.array([x,y,x*y,1]),A)
 
-img = Image.fromarray(output_matrix)
-img.show()
-
-
+img_new = Image.fromarray(output_matrix)
+# img_new = img_new.convert("L")
+# img_new.save("test__.png")
+img_new.show()

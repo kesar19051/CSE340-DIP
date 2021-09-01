@@ -26,8 +26,8 @@ N2 = 8*N1
 output_matrix = np.ones((M2,N2))*-1
 
 # transformation_matrix = np.array([[0.707,-0.707,0],[0.707,0.707,0],[0,0,1]])
-transformation_matrix = np.array([[1.414,-1.414,0],[1.414,1.414,0],[30,0,1]])
-# transformation_matrix = np.array([[0,-1,0],[1,0,0],[0,0,1]])
+transformation_matrix = np.array([[1.414,-1.414,0],[1.414,1.414,0],[30,30,1]])
+# transformation_matrix = np.array([[1,0,0],[0,1,0],[30,50,1]])
 # transformation_matrix = np.array([[0.52,-0.52,0],[0.52,0.52,0],[0,0,1]])
 
 inverse = np.linalg.inv(transformation_matrix)
@@ -93,3 +93,14 @@ img = Image.fromarray(output_matrix)
 img = img.convert("L")
 img.save("test.png")
 img.show()
+
+# extra_matrix = np.ones((M2,N2))*-1
+
+# for i in range(M1):
+# 	for j in range(N1):
+# 		extra_matrix[i+4*M1][j+4*N1] = matrix[i][j]
+
+# img_new = Image.fromarray(extra_matrix)
+# img_new = img_new.convert("L")
+# img_new.save("unregistered.png")
+# img_new.show()
