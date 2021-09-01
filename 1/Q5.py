@@ -6,11 +6,11 @@ import numpy as np
 # load the image and convert into
 # numpy array
 
-# V = np.array([[44,20,1],[42,8,1],[12,4,1]])
-# X = np.array([[121,-1,1],[102,-18,1],[55,19,1]])
+V = np.array([[44,20,1],[42,8,1],[12,4,1]])
+X = np.array([[121,-1,1],[102,-18,1],[55,19,1]])
 
-V = np.array([[2,5,1],[7,2,1],[8,29,1]])
-X = np.array([[41,33,1],[43,24,1],[83,60,1]])
+# V = np.array([[2,5,1],[7,2,1],[8,29,1]])
+# X = np.array([[41,33,1],[43,24,1],[83,60,1]])
 # T_inverse = np.linalg.inv(np.array([[1.414,-1.414,0],[1.414,1.414,0],[30,30,1]]))
 
 Z = np.dot(np.linalg.inv(V),X)
@@ -36,12 +36,12 @@ output_matrix = np.ones((512,512))*-1
 
 for i in range(512):
 	for j in range(512):
-		inputArr = np.array([i,j,1])
+		inputArr = np.array([i-256,j-256,1])
 		output = np.dot(inputArr,Z)
 		x = output[0]
 		y = output[1]
 		
-		if(x<512 and x>=0 and y<512 and y>=0):
+		if(x<256 and x>=-256 and y<256 and y>=-256):
 			if ceil(x)!=x:
 				x1 = floor(x)
 				x2 = ceil(x)
@@ -75,10 +75,10 @@ for i in range(512):
 				]
 
 			Y = [
-					[padded_matrix[x1][y1]],
-					[padded_matrix[x1][y2]],
-					[padded_matrix[x2][y2]],
-					[padded_matrix[x2][y1]],
+					[padded_matrix[x1+256][y1+256]],
+					[padded_matrix[x1+256][y2+256]],
+					[padded_matrix[x2+256][y2+256]],
+					[padded_matrix[x2+256][y1+256]],
 				]
 
 			A = np.dot(np.linalg.inv(X), Y)
