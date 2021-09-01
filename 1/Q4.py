@@ -1,14 +1,24 @@
+"""
+Name: Kesar Shrivastava
+Roll number: 2019051
+"""
+
 # Import the necessary libraries
 from math import *
 from PIL import Image
 import numpy as np
 
+# input the path of the image
+path = input("Enter the path of the image: ")
+
 # load the image and convert into
 # numpy array
-img = Image.open('assign1.jpg')
+img = Image.open(path)
 matrix = np.asarray(img)
+
 # matrix = np.array([[5,10],[10,20]])
 
+# rows and columns of the input matrix
 M1 = len(matrix)
 N1 = len(matrix[0])
 
@@ -19,18 +29,30 @@ for i in range(M1):
 	for j in range(N1):
 		padded_matrix[i][j] = matrix[i][j]
 
+# defining rows and columns for the output matrix
 M2 = 8*M1
 N2 = 8*N1
 
 # creating the output matrix
 output_matrix = np.ones((M2,N2))*-1
 
+# transformation_matrix = np.array([[1.414,-1.414,0],[1.414,1.414,0],[30,30,1]])
 # transformation_matrix = np.array([[0.707,-0.707,0],[0.707,0.707,0],[0,0,1]])
-transformation_matrix = np.array([[1.414,-1.414,0],[1.414,1.414,0],[30,30,1]])
 # transformation_matrix = np.array([[1,0,0],[0,1,0],[30,50,1]])
 # transformation_matrix = np.array([[0.52,-0.52,0],[0.52,0.52,0],[0,0,1]])
 
-inverse = np.linalg.inv(transformation_matrix)
+# input the transformation matrix
+s1 = input("Enter the first row: ")
+s2 = input("Enter the second row: ")
+s3 = input("Enter the third row: ")
+
+transformation_matrix = np.array([np.array(list(map(float, s1.split()))), 
+								  np.array(list(map(float, s2.split()))),
+	                              np.array(list(map(float, s3.split())))
+	                             ])
+
+# inverse of the transformaton matrix
+inverse = np.linalg.pinv(transformation_matrix)
 
 # filling in the output matrix
 for i in range(M2):
@@ -86,21 +108,21 @@ for i in range(M2):
 
 			output_matrix[i][j] = np.dot(np.array([x,y,x*y,1]),A)
 
-		
-
-img = Image.fromarray(output_matrix)
-# new_p = Image.fromarray(fft_p)
-img = img.convert("L")
-img.save("test.png")
+# Display the input image
 img.show()
 
-# extra_matrix = np.ones((M2,N2))*-1
+# Form output image from the matrix
+img_new = Image.fromarray(output_matrix)
 
-# for i in range(M1):
-# 	for j in range(N1):
-# 		extra_matrix[i+4*M1][j+4*N1] = matrix[i][j]
+# Print the transformation matrix
+print()
+print("The transformation matrix is ")
+print(transformation_matrix)
 
-# img_new = Image.fromarray(extra_matrix)
-# img_new = img_new.convert("L")
-# img_new.save("unregistered.png")
-# img_new.show()
+# Display the output image
+img_new.show()
+
+img_new = img.convert("L")
+
+# Save the output image
+img_new.save("Q4_output.png")
