@@ -3,38 +3,32 @@ from math import *
 from PIL import Image
 import numpy as np
 
-# load the image and convert into
-# numpy array
+# V is the reference image and X is the input
 
+# first trial
 V = np.array([[44,20,1],[42,8,1],[12,4,1]])
 X = np.array([[121,-1,1],[102,-18,1],[55,19,1]])
 
+# second trial
 # V = np.array([[2,5,1],[7,2,1],[8,29,1]])
 # X = np.array([[41,33,1],[43,24,1],[83,60,1]])
-# T_inverse = np.linalg.inv(np.array([[1.414,-1.414,0],[1.414,1.414,0],[30,30,1]]))
 
-Z = np.dot(np.linalg.inv(V),X)
-# Z[0][1] = 0-Z[0][1]
-# Z[1][0] = 0-Z[1][0]
+Z = np.dot(np.linalg.pinv(V),X)
 print(Z)
-# Z = np.array([[1.414,-1.414,0],[1.414,1.414,0],[30,30,1]])
 
-input_img = Image.open('test.png')
+# load input image and convert into matrix
+input_img = Image.open('Q4_output.png')
 input_matrix = np.asarray(input_img)
 padded_matrix = np.ones((513,513))*0
 
+# create padded matrix 
 for i in range(512):
 	for j in range(512):
 		padded_matrix[i][j] = input_matrix[i][j]
 
 output_matrix = np.ones((512,512))*-1
 
-# new_matrix = np.ones((64,64))*-1
-
-# for i in range(64):
-# 	for j in range(64):
-# 		new_matrix[i][j] = input_matrix[i+256][j+256]
-
+# filling in the output matrix
 for i in range(512):
 	for j in range(512):
 		inputArr = np.array([i-256,j-256,1])
@@ -86,7 +80,18 @@ for i in range(512):
 
 			output_matrix[i][j] = np.dot(np.array([x,y,x*y,1]),A)
 
+# Display the reference image
+ref_image = Image.open('assign1.jpg')
+ref_image.show()
+
+# Display the input image
+input_img.show()
+
+# Print Z
+print()
+print("Z ")
+print(Z)
+
+# Display the registered image
 img_new = Image.fromarray(output_matrix)
-# img_new = img_new.convert("L")
-# img_new.save("test__.png")
 img_new.show()

@@ -122,7 +122,7 @@ print(transformation_matrix)
 # Display the output image
 img_new.show()
 
-img_new = img.convert("L")
+img_new = img_new.convert("L")
 
 # Save the output image
 img_new.save("Q4_output.png")
