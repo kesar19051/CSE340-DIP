@@ -21,7 +21,7 @@ matrix = np.asarray(img)
 
 # define the interpolation factor
 c = input("Enter the interpolation factor: ")
-c = int(c)
+c = float(c)
 # c = 2
 
 # Show the input image
