@@ -82,7 +82,7 @@ for i in range(M2):
 					[padded_matrix[x2][y1]],
 				]
 
-			A = np.dot(np.linalg.inv(X), Y)
+			A = np.dot(np.linalg.pinv(X), Y)
 
 			output_matrix[i][j] = np.dot(np.array([x,y,x*y,1]),A)
 
