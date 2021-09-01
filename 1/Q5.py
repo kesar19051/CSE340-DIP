@@ -17,6 +17,7 @@ Z = np.dot(np.linalg.inv(V),X)
 # Z[0][1] = 0-Z[0][1]
 # Z[1][0] = 0-Z[1][0]
 print(Z)
+# Z = np.array([[1.414,-1.414,0],[1.414,1.414,0],[30,30,1]])
 
 input_img = Image.open('test.png')
 input_matrix = np.asarray(input_img)
