@@ -6,12 +6,45 @@ import numpy as np
 # V is the reference image and X is the input
 
 # first trial
-V = np.array([[44,20,1],[42,8,1],[12,4,1]])
-X = np.array([[121,-1,1],[102,-18,1],[55,19,1]])
+# V = np.array([[44,20,1],[42,8,1],[12,4,1]])
+# X = np.array([[121,-1,1],[102,-18,1],[55,19,1]])
 
 # second trial
 # V = np.array([[2,5,1],[7,2,1],[8,29,1]])
 # X = np.array([[41,33,1],[43,24,1],[83,60,1]])
+
+# third trial
+# V = np.array([[41,21,1],[13,5,1],[8,29,1]])
+# X = np.array([[120,0,1],[55,20,1],[82,60,1]])
+
+
+img = Image.open('assign1.jpg')
+x1 = np.asarray(img)
+	
+# x1 = np.random.rand(103, 53)
+	
+plt.title('matplotlib.pyplot.ginput() function\
+Example', fontweight ="bold")
+
+print("After 3 clicks :")
+plt.imshow(x1)
+x = plt.ginput(3)
+
+V = np.array([[x[0][1],x[0,0],1],[x[1][1],x[1][0],1],[x[2,1],x[2][0],1]])
+
+img = Image.open('Q4_output.png')
+x1 = np.asarray(img)
+	
+# x1 = np.random.rand(103, 53)
+	
+plt.title('matplotlib.pyplot.ginput() function\
+Example', fontweight ="bold")
+
+print("After 3 clicks :")
+plt.imshow(x1)
+x = plt.ginput(3)
+
+X = np.array([[x[0][1],x[0,0],1],[x[1][1],x[1][0],1],[x[2,1],x[2][0],1]])
 
 Z = np.dot(np.linalg.pinv(V),X)
 print(Z)

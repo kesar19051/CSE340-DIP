@@ -36,20 +36,20 @@ N2 = 8*N1
 # creating the output matrix
 output_matrix = np.ones((M2,N2))*-1
 
-# transformation_matrix = np.array([[1.414,-1.414,0],[1.414,1.414,0],[30,30,1]])
+transformation_matrix = np.array([[1.414,-1.414,0],[1.414,1.414,0],[30,30,1]])
 # transformation_matrix = np.array([[0.707,-0.707,0],[0.707,0.707,0],[0,0,1]])
-# transformation_matrix = np.array([[1,0,0],[0,1,0],[30,50,1]])
+# transformation_matrix = np.array([[1,2,3],[4,5,6],[7,8,9]])
 # transformation_matrix = np.array([[0.52,-0.52,0],[0.52,0.52,0],[0,0,1]])
 
 # input the transformation matrix
-s1 = input("Enter the first row: ")
-s2 = input("Enter the second row: ")
-s3 = input("Enter the third row: ")
+# s1 = input("Enter the first row: ")
+# s2 = input("Enter the second row: ")
+# s3 = input("Enter the third row: ")
 
-transformation_matrix = np.array([np.array(list(map(float, s1.split()))), 
-								  np.array(list(map(float, s2.split()))),
-	                              np.array(list(map(float, s3.split())))
-	                             ])
+# transformation_matrix = np.array([np.array(list(map(float, s1.split()))), 
+# 								  np.array(list(map(float, s2.split()))),
+# 	                              np.array(list(map(float, s3.split())))
+# 	                             ])
 
 # inverse of the transformaton matrix
 inverse = np.linalg.pinv(transformation_matrix)
