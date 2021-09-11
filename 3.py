@@ -28,23 +28,14 @@ for px_val in range(256):
     numOfIndices = numOfIndices/2
     nk.append(numOfIndices)
     pk[px_val] = numOfIndices/total
-    
-fig, ax = plt.subplots(figsize =(10, 7))
-ax.hist(nk, bins = [0, 25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275])
- 
-count, bins_count = np.histogram(nk, bins = 256)
-  
-# finding the PDF of the histogram using count values
-pdf = count / sum(count)
 
-# using numpy np.cumsum to calculate the CDF
-# We can also find using the PDF values by looping and adding
-cdf = np.cumsum(pdf)
+x_axis = list(pk.keys())
+y_axis = list(pk.values())
 
-# Show plot
-# plt.show()
-# print(pk)
-# Calculating the cumulative
+plt.plot(x_axis,y_axis, ".g")
+plt.legend()
+plt.show()
+
 for i in range(2,256):
     pk[i] = pk[i]+pk[i-1]
 
@@ -69,6 +60,23 @@ for i in range(256):
 
 img_new = Image.fromarray(new_matrix)
 img_new.show()
+
+pk = {}
+total = 65536
+# Iterate for each pixel value
+for px_val in range(256):
+    indices = np.where(new_matrix==px_val)
+    numOfIndices = np.size(indices)
+    numOfIndices = numOfIndices/2
+    nk.append(numOfIndices)
+    pk[px_val] = numOfIndices/total
+
+x_axis = list(pk.keys())
+y_axis = list(pk.values())
+
+plt.plot(x_axis,y_axis, ".g")
+plt.legend()
+plt.show()
     
     
 
