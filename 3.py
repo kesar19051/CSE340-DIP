@@ -42,7 +42,7 @@ plt.plot(bins_count[1:], cdf, ".b", label="CDF")
 plt.legend()
 plt.show()
 
-for i in range(2,256):
+for i in range(1,256):
     pk[i] = pk[i]+pk[i-1]
 
 for i in range(256):
