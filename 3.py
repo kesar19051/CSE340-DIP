@@ -18,6 +18,11 @@ img = Image.open(path)
 img.show()
 matrix = np.asarray(img)
 
+# Plotting normalised histogram of the input image
+gg = np.ndarray.flatten(np.array(matrix))
+plt.hist(gg, bins = 256, density = True)
+plt.show()
+
 nk = []
 pk = {}
 total = 65536
@@ -29,10 +34,11 @@ for px_val in range(256):
     nk.append(numOfIndices)
     pk[px_val] = numOfIndices/total
 
-x_axis = list(pk.keys())
-y_axis = list(pk.values())
-
-plt.plot(x_axis,y_axis, ".g")
+# Plotting cdf
+count, bins_count = np.histogram(nk, bins=256, density = True)
+pdf = count / sum(count)
+cdf = np.cumsum(pdf)
+plt.plot(bins_count[1:], cdf, ".b", label="CDF")
 plt.legend()
 plt.show()
 
@@ -61,22 +67,23 @@ for i in range(256):
 img_new = Image.fromarray(new_matrix)
 img_new.show()
 
-pk = {}
-total = 65536
+nk = []
 # Iterate for each pixel value
 for px_val in range(256):
     indices = np.where(new_matrix==px_val)
     numOfIndices = np.size(indices)
     numOfIndices = numOfIndices/2
     nk.append(numOfIndices)
-    pk[px_val] = numOfIndices/total
 
-x_axis = list(pk.keys())
-y_axis = list(pk.values())
+# Plotting normalised histogram of equalised image
+gg = np.ndarray.flatten(np.array(new_matrix))
+plt.hist(gg, bins = 256, density = True)
+plt.show()
 
-plt.plot(x_axis,y_axis, ".g")
+# Plotting cdf
+count, bins_count = np.histogram(nk, bins=256, density = True)
+pdf = count / sum(count)
+cdf = np.cumsum(pdf)
+plt.plot(bins_count[1:], cdf, ".b", label="CDF")
 plt.legend()
 plt.show()
-    
-    
-
