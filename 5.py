@@ -4,11 +4,20 @@ from PIL import Image
 import numpy as np
 from matplotlib import pyplot as plt
 
+n = input("Enter the range of values: ")
+print()
+
 # Defining the image and filter
-array = np.random.randint(10, size=(3, 3))
-# array = np.array([[0,0,0],[0,1,0],[0,0,0]])
-filter = np.random.randint(10, size=(3,3))
-# filter = np.array([[1,2,3],[4,5,6],[7,8,9]])
+# array = np.random.randint(n, size=(3, 3))
+array = np.array([[0,0,0],[0,1,0],[0,0,0]])
+# filter = np.random.randint(n, size=(3,3))
+filter = np.array([[1,2,3],[4,5,6],[7,8,9]])
+
+
+# Printing the filter
+print("The original filter: ")
+print(filter)
+print()
 
 # Initialising rotated filter
 rotatedFilter = np.ones((3,3))*-1
@@ -19,18 +28,6 @@ padded_matrix = np.ones((5,5))*0
 for x in range(1,4):
     for y in range(1,4):
         padded_matrix[x][y] = array[x-1][y-1]
-
-print()
-
-# Printing the image matrix
-print("The image matrix: ")
-print(array)
-print()
-
-# Printing the filter
-print("The filter: ")
-print(filter)
-print()
 
 # Rotating the filter
 rotatedFilter[0][0] = filter[2][2]
@@ -46,6 +43,11 @@ rotatedFilter[2][2] = filter[0][0]
 # Printing the rotated filter
 print("The rotated filter: ")
 print(rotatedFilter)
+print()
+
+# Printing the image matrix
+print("The input matrix: ")
+print(array)
 print()
 
 # Initialising the output matrix
