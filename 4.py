@@ -11,18 +11,36 @@ path = input("Enter the path of the image: ")
 # numpy array
 img = Image.open(path)
 img.show()
+
 matrix = np.asarray(img)
+
 # Plotting normalised histogram of the input image
 gg = np.ndarray.flatten(np.array(matrix))
-plt.hist(gg, bins = 256, density = True)
+plt.hist(gg, bins = 256, density = True, label = "Normalised Histogram")
+plt.legend()
+plt.xlabel("Input Intensity Level")
+plt.ylabel("Normalised Value of Occurence")
 plt.show()
+
+
+# Plotting cdf for input image
+count, bins_count = np.histogram(gg, bins=256)
+pdf = count / sum(count)
+cdf = np.cumsum(pdf)
+plt.plot(bins_count[1:], cdf,".g", label="CDF (input)")
+plt.xlabel("Input Intensity Level")
+plt.ylabel("H(r)")
+plt.legend()
+plt.show()
+
 # matrix = matrix*(1.0)
 
 # gamma transformatin
 # c = 255/(max(np.amax(matrix))**(0.5))
+max_val = np.amax(matrix)
 gamma = 0.5
-c = 255**(1-gamma)
-# print(c)
+c = 255/(max_val**gamma)
+print(c)
 
 gamma_matrix = c*(matrix**(0.5))
 
@@ -31,7 +49,21 @@ img_gamma.show()
 
 # Plotting normalised histogram of the input image
 gg = np.ndarray.flatten(np.array(gamma_matrix))
-plt.hist(gg, bins = 256, density = True)
+plt.hist(gg, bins = 256, density = True, label = "Normalised Histogram")
+plt.legend()
+plt.xlabel("Target Image Intensity Level")
+plt.ylabel("Normalised Value of Occurence")
+plt.show()
+
+
+# Plotting cdf for target image
+count, bins_count = np.histogram(gg, bins=256)
+pdf = count / sum(count)
+cdf = np.cumsum(pdf)
+plt.plot(bins_count[1:], cdf,".g", label="CDF (target)")
+plt.xlabel("Target Image Intensity Level")
+plt.ylabel("G(s)")
+plt.legend()
 plt.show()
 
 nk_input = []
@@ -95,7 +127,20 @@ img_new.show()
 
 # Plotting normalised histogram of the output image
 gg = np.ndarray.flatten(np.array(output_matrix))
-plt.hist(gg, bins = 256, density = True)
+plt.hist(gg, bins = 256, density = True, label = "Normalised Histogram")
+plt.legend()
+plt.xlabel("Matched Image Intensity Level")
+plt.ylabel("Normalised Value of Occurence")
+plt.show()
+
+# Plotting cdf for matched image
+count, bins_count = np.histogram(gg, bins=256)
+pdf = count / sum(count)
+cdf = np.cumsum(pdf)
+plt.plot(bins_count[1:], cdf,".g", label="CDF (matched)")
+plt.xlabel("Mathced Image Intensity Level")
+plt.ylabel("F(r)")
+plt.legend()
 plt.show()
 
 # for i in range(256):
