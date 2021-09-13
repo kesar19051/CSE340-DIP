@@ -20,6 +20,7 @@ plt.hist(gg, bins = 256, density = True, label = "Normalised Histogram")
 plt.legend()
 plt.xlabel("Input Intensity Level")
 plt.ylabel("Normalised Value of Occurence")
+plt.title("Histogram of Input Image")
 plt.show()
 
 
@@ -30,6 +31,7 @@ cdf = np.cumsum(pdf)
 plt.plot(bins_count[1:], cdf,".g", label="CDF (input)")
 plt.xlabel("Input Intensity Level")
 plt.ylabel("H(r)")
+plt.title("CDF of Input Image")
 plt.legend()
 plt.show()
 
@@ -40,7 +42,7 @@ plt.show()
 max_val = np.amax(matrix)
 gamma = 0.5
 c = 255/(max_val**gamma)
-print(c)
+# print(c)
 
 gamma_matrix = c*(matrix**(0.5))
 
@@ -53,8 +55,8 @@ plt.hist(gg, bins = 256, density = True, label = "Normalised Histogram")
 plt.legend()
 plt.xlabel("Target Image Intensity Level")
 plt.ylabel("Normalised Value of Occurence")
+plt.title("Histogram of Target Image")
 plt.show()
-
 
 # Plotting cdf for target image
 count, bins_count = np.histogram(gg, bins=256)
@@ -63,6 +65,7 @@ cdf = np.cumsum(pdf)
 plt.plot(bins_count[1:], cdf,".g", label="CDF (target)")
 plt.xlabel("Target Image Intensity Level")
 plt.ylabel("G(s)")
+plt.title("CDF of Target Image")
 plt.legend()
 plt.show()
 
@@ -131,6 +134,7 @@ plt.hist(gg, bins = 256, density = True, label = "Normalised Histogram")
 plt.legend()
 plt.xlabel("Matched Image Intensity Level")
 plt.ylabel("Normalised Value of Occurence")
+plt.title("Histogram of Matched Image")
 plt.show()
 
 # Plotting cdf for matched image
@@ -140,6 +144,7 @@ cdf = np.cumsum(pdf)
 plt.plot(bins_count[1:], cdf,".g", label="CDF (matched)")
 plt.xlabel("Mathced Image Intensity Level")
 plt.ylabel("F(r)")
+plt.title("CDF of Matched Image")
 plt.legend()
 plt.show()
 
