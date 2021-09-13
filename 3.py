@@ -20,7 +20,20 @@ matrix = np.asarray(img)
 
 # Plotting normalised histogram of the input image
 gg = np.ndarray.flatten(np.array(matrix))
-plt.hist(gg, bins = 256, density = True)
+plt.hist(gg, bins = 256, density = True, label = "Normalised Histogram")
+plt.legend()
+plt.xlabel("Input Intensity Level")
+plt.ylabel("Normalised Value of Occurence")
+plt.show()
+
+# Plotting cdf for input image
+count, bins_count = np.histogram(gg, bins=256)
+pdf = count / sum(count)
+cdf = np.cumsum(pdf)
+plt.plot(bins_count[1:], cdf,".g", label="CDF (input)")
+plt.xlabel("Input Intensity Level")
+plt.ylabel("H(r)")
+plt.legend()
 plt.show()
 
 nk = []
@@ -33,14 +46,6 @@ for px_val in range(256):
     numOfIndices = numOfIndices/2
     nk.append(numOfIndices)
     pk[px_val] = numOfIndices/total
-
-# Plotting cdf
-count, bins_count = np.histogram(nk, bins=256, density = True)
-pdf = count / sum(count)
-cdf = np.cumsum(pdf)
-plt.plot(bins_count[1:], cdf, ".b", label="CDF")
-plt.legend()
-plt.show()
 
 for i in range(1,256):
     pk[i] = pk[i]+pk[i-1]
@@ -77,13 +82,18 @@ for px_val in range(256):
 
 # Plotting normalised histogram of equalised image
 gg = np.ndarray.flatten(np.array(new_matrix))
-plt.hist(gg, bins = 256, density = True)
+plt.hist(gg, bins = 256, density = True, label="Normalised Histogram")
+plt.legend()
+plt.xlabel("Output Intensity Level")
+plt.ylabel("Normalised Value of Occurence")
 plt.show()
 
-# Plotting cdf
-count, bins_count = np.histogram(nk, bins=256, density = True)
+# Plotting cdf for output image
+count, bins_count = np.histogram(gg, bins=256)
 pdf = count / sum(count)
 cdf = np.cumsum(pdf)
-plt.plot(bins_count[1:], cdf, ".b", label="CDF")
+plt.plot(bins_count[1:], cdf,".g", label="CDF (output)")
 plt.legend()
+plt.xlabel("Output Intensity Level")
+plt.ylabel("G(s)")
 plt.show()
