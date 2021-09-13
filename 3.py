@@ -15,7 +15,7 @@ path = input("Enter the path of the image: ")
 # load the image and convert into
 # numpy array
 img = Image.open(path)
-img.show()
+img.show(title = "Input Image")
 matrix = np.asarray(img)
 
 # Plotting normalised histogram of the input image
@@ -72,7 +72,7 @@ for i in range(256):
         new_matrix[x][y] = pk[i]
 
 img_new = Image.fromarray(new_matrix)
-img_new.show()
+img_new.show(title = "Equalized Image")
 
 nk = []
 # Iterate for each pixel value
@@ -86,9 +86,9 @@ for px_val in range(256):
 gg = np.ndarray.flatten(np.array(new_matrix))
 plt.hist(gg, bins = 256, density = True, label="Normalised Histogram")
 plt.legend()
-plt.xlabel("Output Intensity Level")
+plt.xlabel("Equalised Image Intensity Level")
 plt.ylabel("Normalised Value of Occurence")
-plt.title("Higtogram of Output Image")
+plt.title("Higtogram of Equalised Image")
 plt.show()
 
 # Plotting cdf for output image
@@ -99,5 +99,5 @@ plt.plot(bins_count[1:], cdf,".g", label="CDF (output)")
 plt.legend()
 plt.xlabel("Output Intensity Level")
 plt.ylabel("G(s)")
-plt.title("CDF of Output Image")
+plt.title("CDF of Equalised Image")
 plt.show()
