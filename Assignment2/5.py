@@ -4,6 +4,28 @@ from PIL import Image
 import numpy as np
 from matplotlib import pyplot as plt
 
+C = 3
+R = 3
+
+def reverseColumns(arr):
+    for i in range(C):
+        j = 0
+        k = C-1
+        while j < k:
+            t = arr[j][i]
+            arr[j][i] = arr[k][i]
+            arr[k][i] = t
+            j += 1
+            k -= 1
+             
+# Function for transpose of matrix
+def transpose(arr):
+    for i in range(R):
+        for j in range(i, C):
+            t = arr[i][j]
+            arr[i][j] = arr[j][i]
+            arr[j][i] = t
+
 n = input("Enter the range of values: ")
 print()
 
@@ -13,14 +35,10 @@ array = np.array([[0,0,0],[0,1,0],[0,0,0]])
 # filter = np.random.randint(n, size=(3,3))
 filter = np.array([[1,2,3],[4,5,6],[7,8,9]])
 
-
 # Printing the filter
 print("The original filter: ")
 print(filter)
 print()
-
-# Initialising rotated filter
-rotatedFilter = np.ones((3,3))*-1
 
 # Padding the image matrix
 padded_matrix = np.ones((5,5))*0
@@ -30,19 +48,14 @@ for x in range(1,4):
         padded_matrix[x][y] = array[x-1][y-1]
 
 # Rotating the filter
-rotatedFilter[0][0] = filter[2][2]
-rotatedFilter[0][1] = filter[2][1]
-rotatedFilter[0][2] = filter[2][0]
-rotatedFilter[1][0] = filter[1][2]
-rotatedFilter[1][1] = filter[1][1]
-rotatedFilter[1][2] = filter[1][0]
-rotatedFilter[2][0] = filter[0][2]
-rotatedFilter[2][1] = filter[0][1]
-rotatedFilter[2][2] = filter[0][0]
+transpose(filter)
+reverseColumns(filter)
+transpose(filter)
+reverseColumns(filter)
 
 # Printing the rotated filter
 print("The rotated filter: ")
-print(rotatedFilter)
+print(filter)
 print()
 
 # Printing the image matrix
@@ -109,10 +122,25 @@ for i in range(5):
 
         for x in range(3):
             for y in range(3):
-                pixel_value = pixel_value+rotatedFilter[x][y]*list[index]
+                pixel_value = pixel_value+filter[x][y]*list[index]
                 index = index+1
         
         output_matrix[i][j] = pixel_value
 
 print("The output matrix: ")
 print(output_matrix)
+
+
+# # Initialising rotated filter
+# rotatedFilter = np.ones((3,3))*-1
+
+# # Rotating the filter
+# rotatedFilter[0][0] = filter[2][2]
+# rotatedFilter[0][1] = filter[2][1]
+# rotatedFilter[0][2] = filter[2][0]
+# rotatedFilter[1][0] = filter[1][2]
+# rotatedFilter[1][1] = filter[1][1]
+# rotatedFilter[1][2] = filter[1][0]
+# rotatedFilter[2][0] = filter[0][2]
+# rotatedFilter[2][1] = filter[0][1]
+# rotatedFilter[2][2] = filter[0][0]
