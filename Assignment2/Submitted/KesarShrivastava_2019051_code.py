@@ -10,6 +10,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 # Q3
+print()
 print("Solution to 3 goes here: ")
 
 # input the path of the image
@@ -107,6 +108,7 @@ plt.title("CDF of Equalised Image")
 plt.show()
 
 # Q4
+print()
 print("Solution to 4 goes here: ")
 
 # input the path of the image
@@ -152,10 +154,14 @@ c = 255/(max_val**gamma)
 
 gamma_matrix = c*(matrix**(0.5))
 
+for i in range(256):
+    for j in range(256):
+        gamma_matrix[i][j] = round(gamma_matrix[i][j])
+
 img_gamma = Image.fromarray(gamma_matrix)
 img_gamma.show()
 
-# Plotting normalised histogram of the input image
+# Plotting normalised histogram of the target image
 gg = np.ndarray.flatten(np.array(gamma_matrix))
 plt.hist(gg, bins = 256, density = True, label = "Normalised Histogram")
 plt.legend()
@@ -187,7 +193,7 @@ for px_val in range(256):
     nk_input.append(numOfIndices)
     pk_input[px_val] = numOfIndices/total
 
-for i in range(2,256):
+for i in range(1,256):
     pk_input[i] = pk_input[i]+pk_input[i-1]
 
 nk_gamma = []
@@ -196,7 +202,7 @@ total = 65536
 
 # Iterate for each pixel value
 for px_val in range(256):
-    indices = np.where(matrix==px_val)
+    indices = np.where(gamma_matrix==px_val)
     numOfIndices = np.size(indices)
     numOfIndices = numOfIndices/2
     nk_gamma.append(numOfIndices)
@@ -206,6 +212,8 @@ for i in range(1,256):
     pk_gamma[i] = pk_gamma[i]+pk_gamma[i-1]
 
 mapped_values = {}
+
+# print("pk_gamma: ", pk_gamma)
 
 for px_val in range(256):
     H = pk_input[px_val]
@@ -273,6 +281,7 @@ plt.show()
 #         break
 
 # Q5
+print()
 print("Solution to 5 goes here: ")
 print()
 
@@ -298,12 +307,13 @@ def transpose(arr):
             arr[i][j] = arr[j][i]
             arr[j][i] = t
 
-n = input("Enter the range of values: ")
+n = input("Enter the upper limit for range of values: ")
+m = input("Enter the lower limit for range of values: ")
 print()
 
 # Defining the image and filter
-array = np.random.randint(n, size=(3, 3))
-filter = np.random.randint(n, size=(3,3))
+array = np.random.randint(m, n, size=(3, 3))
+filter = np.random.randint(m, n, size=(3,3))
 # array = np.array([[0,0,0],[0,1,0],[0,0,0]])
 # filter = np.array([[1,2,3],[4,5,6],[7,8,9]])
 
