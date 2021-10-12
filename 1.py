@@ -85,10 +85,12 @@ for i in range(2*M):
 
 filter_to_show = np.ones((2*M,2*N))*0
 
-# displaying the filter
+max = np.amax(filter)
+min = np.amin(filter)
+
 for i in range(2*M):
     for j in range(2*N):
-        filter_to_show[i][j] = round(filter[i][j])
+        filter_to_show[i][j] = ((filter[i][j]-min)/(max-min))*255
 
 img = Image.fromarray(filter_to_show)
 img.show()
