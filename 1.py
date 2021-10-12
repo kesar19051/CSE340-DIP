@@ -64,3 +64,58 @@ for i in range(2*M):
 # display the magnitude spectrum
 img = Image.fromarray(magnitude_spectrum)
 img.show()
+
+# defining the filter
+filter = np.ones((2*M,2*N))*0
+
+# taking in D0
+D0 = int(input("Enter the value of D0: "))
+n = int(input("Enter the value of n: "))
+
+# defining D(u,v)
+def Duv(i,j):
+    i = pow(i-256,2)
+    j = pow(j-256,2)
+    return pow(i+j,0.5)
+
+# creating the filter
+for i in range(2*M):
+    for j in range(2*N):
+        filter[i][j] = 1/(1+pow((Duv(i,j)/D0),2*n))
+
+filter_to_show = np.ones((2*M,2*N))*0
+
+# displaying the filter
+for i in range(2*M):
+    for j in range(2*N):
+        filter_to_show[i][j] = round(filter[i][j])
+
+img = Image.fromarray(filter_to_show)
+img.show()
+
+# taking elementwise multiplication
+elementwise_multiplied = np.multiply(dft_image_matrix,filter)
+
+# computing the inverse dft
+idft = np.fft.ifftn(elementwise_multiplied)
+
+# taking the real part of the matrix
+real_idft = idft.real
+
+# centering it
+for i in range(2*M):
+    for j in range(2*N):
+        real_idft[i][j] = real_idft[i][j]*pow(-1,i+j)
+
+img = Image.fromarray(real_idft)
+img.show()
+
+# cropping the final image
+output_image = np.ones((M,N))*0
+
+for i in range(M):
+    for j in range(N):
+        output_image[i][j] = real_idft[i][j]
+
+img = Image.fromarray(output_image)
+img.show()
