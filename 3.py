@@ -11,6 +11,7 @@ path = 'camera.jpg'
 # load the image and convert into
 # numpy array
 img = Image.open(path)
+img.show()
 matrix = np.asarray(img)
 
 # M = number of rows; N = number of columns
