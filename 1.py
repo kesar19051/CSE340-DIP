@@ -90,10 +90,107 @@ img.show()
 
 # defining the filter
 filter = np.ones((2*M,2*N))*0
+n = 2
 
-# taking in D0
-D0 = int(input("Enter the value of D0: "))
-n = int(input("Enter the value of n: "))
+def func(D0):
+
+    # creating the filter
+    for i in range(2*M):
+        for j in range(2*N):
+            filter[i][j] = 1/(1+pow((Duv(i,j)/D0),2*n))
+
+    filter_to_show = np.ones((2*M,2*N))*0
+
+    max = np.amax(filter)
+    min = np.amin(filter)
+
+    for i in range(2*M):
+        for j in range(2*N):
+            filter_to_show[i][j] = ((filter[i][j]-min)/(max-min))*255
+
+    img = Image.fromarray(filter_to_show)
+    img.show()
+
+    centered_dft_filter = np.fft.fft2(filter)
+
+    magnitude_spectrum = np.ones((2*M,2*N))*0
+
+    for i in range(2*M):
+        for j in range(2*N):
+            magnitude_spectrum[i][j] = round(abs(centered_dft_filter[i][j]))
+
+    max = np.amax(magnitude_spectrum)
+    min = np.amin(magnitude_spectrum)
+
+    for i in range(2*M):
+        for j in range(2*N):
+            magnitude_spectrum[i][j] = ((magnitude_spectrum[i][j]-min)/(max-min))*255
+    
+    img = Image.fromarray(magnitude_spectrum)
+    img.show()
+
+    centered__ = np.ones((2*M,2*N))*0
+
+    for i in range(2*M):
+        for j in range(2*N):
+            centered__[i][j] = filter[i][j]*pow(-1,i+j)
+
+    centered_dft_filter = np.fft.fft2(centered__)
+
+    magnitude_spectrum = np.ones((2*M,2*N))*0
+
+    for i in range(2*M):
+        for j in range(2*N):
+            magnitude_spectrum[i][j] = round(abs(centered_dft_filter[i][j]))
+
+    max = np.amax(magnitude_spectrum)
+    min = np.amin(magnitude_spectrum)
+
+    for i in range(2*M):
+        for j in range(2*N):
+            magnitude_spectrum[i][j] = ((magnitude_spectrum[i][j]-min)/(max-min))*255
+    
+    img = Image.fromarray(magnitude_spectrum)
+    img.show()
+
+    # taking elementwise multiplication
+    elementwise_multiplied = np.multiply(dft_image_matrix,filter)
+
+    max = np.amax(elementwise_multiplied)
+    min = np.amin(elementwise_multiplied)
+
+    elementwise_multiplied_show = np.ones((2*M,2*N))*0
+
+    for i in range(2*M):
+        for j in range(2*N):
+            elementwise_multiplied_show[i][j] = ((abs(elementwise_multiplied[i][j])-min)/(max-min))*255
+
+    img = Image.fromarray(elementwise_multiplied_show)
+    img.show()
+
+    # computing the inverse dft
+    idft = np.fft.ifftn(elementwise_multiplied)
+
+    # taking the real part of the matrix
+    real_idft = idft.real
+
+    # centering it
+    for i in range(2*M):
+        for j in range(2*N):
+            real_idft[i][j] = real_idft[i][j]*pow(-1,i+j)
+
+    img = Image.fromarray(real_idft)
+    img.show()
+
+    # cropping the final image
+    output_image = np.ones((M,N))*0
+
+    for i in range(M):
+        for j in range(N):
+            output_image[i][j] = real_idft[i][j]
+
+    img = Image.fromarray(output_image)
+    img.show()
 
 # defining D(u,v)
 def Duv(i,j):
@@ -101,58 +198,7 @@ def Duv(i,j):
     j = pow(j-256,2)
     return pow(i+j,0.5)
 
-# creating the filter
-for i in range(2*M):
-    for j in range(2*N):
-        filter[i][j] = 1/(1+pow((Duv(i,j)/D0),2*n))
+D = [10,30,60]
 
-filter_to_show = np.ones((2*M,2*N))*0
-
-max = np.amax(filter)
-min = np.amin(filter)
-
-for i in range(2*M):
-    for j in range(2*N):
-        filter_to_show[i][j] = ((filter[i][j]-min)/(max-min))*255
-
-img = Image.fromarray(filter_to_show)
-img.show()
-
-# taking elementwise multiplication
-elementwise_multiplied = np.multiply(dft_image_matrix,filter)
-
-max = np.amax(elementwise_multiplied)
-min = np.amin(elementwise_multiplied)
-
-elementwise_multiplied_show = np.ones((2*M,2*N))*0
-
-for i in range(2*M):
-    for j in range(2*N):
-        elementwise_multiplied_show[i][j] = ((abs(elementwise_multiplied[i][j])-min)/(max-min))*255
-
-img = Image.fromarray(elementwise_multiplied_show)
-img.show()
-
-# computing the inverse dft
-idft = np.fft.ifftn(elementwise_multiplied)
-
-# taking the real part of the matrix
-real_idft = idft.real
-
-# centering it
-for i in range(2*M):
-    for j in range(2*N):
-        real_idft[i][j] = real_idft[i][j]*pow(-1,i+j)
-
-img = Image.fromarray(real_idft)
-img.show()
-
-# cropping the final image
-output_image = np.ones((M,N))*0
-
-for i in range(M):
-    for j in range(N):
-        output_image[i][j] = real_idft[i][j]
-
-img = Image.fromarray(output_image)
-img.show()
+for D0 in D:
+    func(D0)
