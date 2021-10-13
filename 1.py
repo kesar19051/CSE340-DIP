@@ -111,62 +111,62 @@ def func(D0):
     img = Image.fromarray(filter_to_show)
     img.show()
 
-    centered_dft_filter = np.fft.fft2(filter)
+    # centered_dft_filter = np.fft.fft2(filter)
 
-    magnitude_spectrum = np.ones((2*M,2*N))*0
+    # magnitude_spectrum = np.ones((2*M,2*N))*0
 
-    for i in range(2*M):
-        for j in range(2*N):
-            magnitude_spectrum[i][j] = round(abs(centered_dft_filter[i][j]))
+    # for i in range(2*M):
+    #     for j in range(2*N):
+    #         magnitude_spectrum[i][j] = round(abs(centered_dft_filter[i][j]))
 
-    max = np.amax(magnitude_spectrum)
-    min = np.amin(magnitude_spectrum)
+    # max = np.amax(magnitude_spectrum)
+    # min = np.amin(magnitude_spectrum)
 
-    for i in range(2*M):
-        for j in range(2*N):
-            magnitude_spectrum[i][j] = ((magnitude_spectrum[i][j]-min)/(max-min))*255
+    # for i in range(2*M):
+    #     for j in range(2*N):
+    #         magnitude_spectrum[i][j] = ((magnitude_spectrum[i][j]-min)/(max-min))*255
     
-    img = Image.fromarray(magnitude_spectrum)
-    img.show()
+    # img = Image.fromarray(magnitude_spectrum)
+    # img.show()
 
-    centered__ = np.ones((2*M,2*N))*0
+    # centered__ = np.ones((2*M,2*N))*0
 
-    for i in range(2*M):
-        for j in range(2*N):
-            centered__[i][j] = filter[i][j]*pow(-1,i+j)
+    # for i in range(2*M):
+    #     for j in range(2*N):
+    #         centered__[i][j] = filter[i][j]*pow(-1,i+j)
 
-    centered_dft_filter = np.fft.fft2(centered__)
+    # centered_dft_filter = np.fft.fft2(centered__)
 
-    magnitude_spectrum = np.ones((2*M,2*N))*0
+    # magnitude_spectrum = np.ones((2*M,2*N))*0
 
-    for i in range(2*M):
-        for j in range(2*N):
-            magnitude_spectrum[i][j] = round(abs(centered_dft_filter[i][j]))
+    # for i in range(2*M):
+    #     for j in range(2*N):
+    #         magnitude_spectrum[i][j] = round(abs(centered_dft_filter[i][j]))
 
-    max = np.amax(magnitude_spectrum)
-    min = np.amin(magnitude_spectrum)
+    # max = np.amax(magnitude_spectrum)
+    # min = np.amin(magnitude_spectrum)
 
-    for i in range(2*M):
-        for j in range(2*N):
-            magnitude_spectrum[i][j] = ((magnitude_spectrum[i][j]-min)/(max-min))*255
+    # for i in range(2*M):
+    #     for j in range(2*N):
+    #         magnitude_spectrum[i][j] = ((magnitude_spectrum[i][j]-min)/(max-min))*255
     
-    img = Image.fromarray(magnitude_spectrum)
-    img.show()
+    # img = Image.fromarray(magnitude_spectrum)
+    # img.show()
 
     # taking elementwise multiplication
     elementwise_multiplied = np.multiply(dft_image_matrix,filter)
 
-    max = np.amax(elementwise_multiplied)
-    min = np.amin(elementwise_multiplied)
+    # max = np.amax(elementwise_multiplied)
+    # min = np.amin(elementwise_multiplied)
 
-    elementwise_multiplied_show = np.ones((2*M,2*N))*0
+    # elementwise_multiplied_show = np.ones((2*M,2*N))*0
 
-    for i in range(2*M):
-        for j in range(2*N):
-            elementwise_multiplied_show[i][j] = ((abs(elementwise_multiplied[i][j])-min)/(max-min))*255
+    # for i in range(2*M):
+    #     for j in range(2*N):
+    #         elementwise_multiplied_show[i][j] = ((abs(elementwise_multiplied[i][j])-min)/(max-min))*255
 
-    img = Image.fromarray(elementwise_multiplied_show)
-    img.show()
+    # img = Image.fromarray(elementwise_multiplied_show)
+    # img.show()
 
     # computing the inverse dft
     idft = np.fft.ifftn(elementwise_multiplied)
