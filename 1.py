@@ -30,6 +30,29 @@ for i in range(M):
 img = Image.fromarray(padded_matrix)
 img.show()
 
+dft = np.fft.fft2(padded_matrix)
+
+# for plotting the magnitude spectrum
+magnitude_spectrum = np.ones((2*M,2*N))*0
+
+# filling the values of magnitude spectrum
+for i in range(2*M):
+    for j in range(2*N):
+        magnitude_spectrum[i][j] = int(round(abs(dft[i][j])))
+
+# finding the min and max value in the matrix for scaling
+max = np.amax(magnitude_spectrum)
+min = np.amin(magnitude_spectrum)
+
+# scaling the pixel values
+for i in range(2*M):
+    for j in range(2*N):
+        magnitude_spectrum[i][j] = ((magnitude_spectrum[i][j]-min)/(max-min))*255
+
+# display the magnitude spectrum
+img = Image.fromarray(magnitude_spectrum)
+img.show()
+
 # the centered 2d dft of image
 centered_2d_dft = np.ones((2*M,2*N))*0
 
