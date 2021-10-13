@@ -98,6 +98,18 @@ img.show()
 # taking elementwise multiplication
 elementwise_multiplied = np.multiply(dft_image_matrix,filter)
 
+max = np.amax(elementwise_multiplied)
+min = np.amin(elementwise_multiplied)
+
+elementwise_multiplied_show = np.ones((2*M,2*N))*0
+
+for i in range(2*M):
+    for j in range(2*N):
+        elementwise_multiplied_show[i][j] = ((abs(elementwise_multiplied[i][j])-min)/(max-min))*255
+
+img = Image.fromarray(elementwise_multiplied_show)
+img.show()
+
 # computing the inverse dft
 idft = np.fft.ifftn(elementwise_multiplied)
 
